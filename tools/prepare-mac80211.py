@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Stage locked, unmodified mac80211 sources and remove tracing instrumentation."""
+import sys
 from pathlib import Path
 import argparse
 import json
@@ -10,7 +11,7 @@ root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--subsystem", choices=("mac80211", "cfg80211"), default="mac80211")
 args = parser.parse_args()
-subprocess.run(["python3", str(root / "tools/fetch-sources.py"), "--check"], check=True)
+subprocess.run([sys.executable, str(root / "tools/fetch-sources.py"), "--check"], check=True)
 subprocess.run(["bash", str(root / "tools/pin-headers.sh")], check=True)
 source = root / "deps/linux"
 source_tree = "net/mac80211" if args.subsystem == "mac80211" else "net/wireless"

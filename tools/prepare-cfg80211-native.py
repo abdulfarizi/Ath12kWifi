@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Reuse original cfg80211 validation/cleanup with the native control transport."""
+import sys
 import hashlib
 import json
 from pathlib import Path
@@ -7,7 +8,7 @@ import subprocess
 from source_fragments import function
 
 root = Path(__file__).resolve().parents[1]
-subprocess.run(["python3", str(root / "tools/fetch-sources.py"), "--check"], check=True)
+subprocess.run([sys.executable, str(root / "tools/fetch-sources.py"), "--check"], check=True)
 fragments = []
 records = []
 for file, names in (

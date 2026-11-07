@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Exercise the production mac80211 crypto adapter with upstream AES sources."""
+import sys
 from pathlib import Path
 import argparse
 import hashlib
@@ -11,8 +12,8 @@ root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--kernel", action="store_true", help="also compile arm64e iOS 27 kernel objects")
 args = parser.parse_args()
-subprocess.run(["python3", str(root / "tools/prepare-mac80211.py")], check=True)
-subprocess.run(["python3", str(root / "tools/prepare-crypto.py")], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-mac80211.py")], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-crypto.py")], check=True)
 output = root / "out/crypto-test"
 output.mkdir(exist_ok=True)
 (output / "report.json").unlink(missing_ok=True)

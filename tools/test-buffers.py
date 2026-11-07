@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Compile production buffer/runtime code and exercise DMA ownership on the host."""
+import sys
 from pathlib import Path
 import hashlib
 import json
@@ -10,8 +11,8 @@ root = Path(__file__).resolve().parents[1]
 out = root / "out/buffer-test"
 out.mkdir(parents=True, exist_ok=True)
 (out / "report.json").unlink(missing_ok=True)
-subprocess.run(["python3", str(root / "tools/prepare-mac80211.py"), "--subsystem", "cfg80211"], check=True)
-subprocess.run(["python3", str(root / "tools/prepare-cfg80211-native.py")], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-mac80211.py"), "--subsystem", "cfg80211"], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-cfg80211-native.py")], check=True)
 compiler = shutil.which("clang")
 if not compiler:
     raise SystemExit("clang is required")

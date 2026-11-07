@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check native command mapping with explicit radio/MLME test doubles."""
+import sys
 import hashlib
 import json
 from pathlib import Path
@@ -9,7 +10,7 @@ root = Path(__file__).resolve().parents[1]
 out = root / "out/cfg80211-control-test"
 out.mkdir(exist_ok=True)
 (out / "report.json").unlink(missing_ok=True)
-subprocess.run(["python3", str(root / "tools/prepare-mac80211.py"), "--subsystem", "cfg80211"], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-mac80211.py"), "--subsystem", "cfg80211"], check=True)
 sources = [root / path for path in ("tests/cfg80211_control_test.c", "src/nw_net.c", "src/nw_netdev.c",
     "src/nw_cfg80211_os.c", "src/nw_crc32.c", "src/nw_control.c", "src/nw_control_wire.c", "shim/src/lx_rt.c",
     "deps/linux/lib/rbtree.c", "out/cfg80211/util.c")]

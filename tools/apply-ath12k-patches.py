@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Apply reviewed patches to generated ath12k copies and record their identity."""
+import sys
 import hashlib
 import json
 from pathlib import Path
@@ -7,7 +8,7 @@ import subprocess
 
 root = Path(__file__).resolve().parents[1]
 tree = root / "out/ath12k-src"
-subprocess.run(["python3", str(root / "tools/fetch-sources.py"), "--check"], check=True)
+subprocess.run([sys.executable, str(root / "tools/fetch-sources.py"), "--check"], check=True)
 records = []
 patches = [("ath12k-vht-rx-mcs.patch", ["dp_rx.c"]),
            ("ath12k-encrypted-eapol.patch", ["dp_tx.c", "dp_tx.h", "wifi7/dp_tx.c"])]

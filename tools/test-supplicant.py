@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Run the real supplicant/backend against an offline AP; no Wi-Fi hardware."""
+import sys
 import hashlib
 import json
 from pathlib import Path
@@ -14,7 +15,7 @@ current = bool(expected) and all((root / name).exists() and hashlib.sha256((root
                                for name, digest in expected.items())
 current &= report.get("prepare_script_sha256") == hashlib.sha256((root / "tools/prepare-supplicant.py").read_bytes()).hexdigest()
 if not current:
-    subprocess.run(["python3", str(root / "tools/build-supplicant.py"), "--target", "host"], check=True)
+    subprocess.run([sys.executable, str(root / "tools/build-supplicant.py"), "--target", "host"], check=True)
 out = root / "out/supplicant-test"
 out.mkdir(exist_ok=True)
 (out / "report.json").unlink(missing_ok=True)

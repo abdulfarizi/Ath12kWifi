@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Stage explicit executor roles in generated OS-adapted Linux copies."""
+import sys
 import hashlib
 import json
 from pathlib import Path
 import subprocess
 root = Path(__file__).resolve().parents[1]
-subprocess.run(["python3", str(root / "tools/fetch-sources.py"), "--check"], check=True)
+subprocess.run([sys.executable, str(root / "tools/fetch-sources.py"), "--check"], check=True)
 out = root / "out/os-src"
 out.mkdir(exist_ok=True)
 inputs = {"qmi_interface.c": "drivers/soc/qcom/qmi_interface.c", "mhi-init.c": "drivers/bus/mhi/host/init.c"}

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Reuse locked Linux notification bodies and their private encoding helpers."""
+import sys
 import hashlib
 import json
 from pathlib import Path
@@ -8,7 +9,7 @@ import subprocess
 from source_fragments import function
 
 root = Path(__file__).resolve().parents[1]
-subprocess.run(["python3", str(root / "tools/fetch-sources.py"), "--check"], check=True)
+subprocess.run([sys.executable, str(root / "tools/fetch-sources.py"), "--check"], check=True)
 source = root / "deps/linux/net/wireless/nl80211.c"
 text = source.read_text()
 names = """

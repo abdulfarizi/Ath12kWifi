@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build the original supplicant plus the native XNU backend, without libnl."""
+import sys
 import argparse
 import hashlib
 import json
@@ -13,7 +14,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--target", choices=("host", "ios"), default="ios")
 parser.add_argument("--jobs", type=int, default=8)
 args = parser.parse_args()
-subprocess.run(["python3", str(root / "tools/prepare-supplicant.py")], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-supplicant.py")], check=True)
 output = root / f"out/wpa-{args.target}"
 output.mkdir(exist_ok=True)
 (output / "report.json").unlink(missing_ok=True)

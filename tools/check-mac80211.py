@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Compile original mac80211 units; retain exact source/error coverage per unit."""
+import sys
 import argparse
 import hashlib
 import json
@@ -22,7 +23,7 @@ parser.add_argument("--kernel", action="store_true", help="compile arm64e iOS 27
 args = parser.parse_args()
 if args.files is None:
     args.files = mac80211_files if args.subsystem == "mac80211" else ["core", "scan", "chan", "util", "mlme", "sme", "reg", "radiotap", "ibss", "mesh", "ap", "ocb"]
-subprocess.run(["python3", str(root / "tools/prepare-mac80211.py"), "--subsystem", args.subsystem], check=True)
+subprocess.run([sys.executable, str(root / "tools/prepare-mac80211.py"), "--subsystem", args.subsystem], check=True)
 output = root / "out" / args.subsystem / ("kernel" if args.kernel else "host")
 output.mkdir(exist_ok=True)
 compiler = shutil.which("clang")

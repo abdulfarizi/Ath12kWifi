@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Stage the verified release; alter only backend registration and notifications."""
+import sys
 import hashlib
 import json
 from pathlib import Path
@@ -7,7 +8,7 @@ import subprocess
 import tarfile
 
 root = Path(__file__).resolve().parents[1]
-subprocess.run(["python3", str(root / "tools/fetch-sources.py"), "--check"], check=True)
+subprocess.run([sys.executable, str(root / "tools/fetch-sources.py"), "--check"], check=True)
 lock = json.loads((root / "tools/source-lock.json").read_text())["supplicant"]
 out = root / "out/wpa-src"
 out.mkdir(exist_ok=True)
